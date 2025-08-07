@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { VetContext } from '../context/VetContext'
 import { Link } from 'react-router-dom'
 import { FaSearch, FaCalendarPlus } from 'react-icons/fa'
+import { ISTANBUL_COUNTIES, VET_EXPERTISE } from '../constants'
 
 const SearchVets = () => {
   const { vets } = useContext(VetContext)
@@ -10,8 +11,8 @@ const SearchVets = () => {
 
   const filtered = vets.filter(
     v =>
-      (location === '' || v.location.toLowerCase().includes(location.toLowerCase())) &&
-      (category === '' || v.categories.toLowerCase().includes(category.toLowerCase()))
+      (location === '' || v.location === location) &&
+      (category === '' || v.categories === category)
   )
 
   return (
@@ -20,18 +21,30 @@ const SearchVets = () => {
         <FaSearch className="mr-2" /> Search Vets
       </h2>
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:gap-2">
-        <input
+        <select
           className="flex-1 rounded border p-2"
-          placeholder="Location"
           value={location}
           onChange={e => setLocation(e.target.value)}
-        />
-        <input
+        >
+          <option value="">All Locations</option>
+          {ISTANBUL_COUNTIES.map(county => (
+            <option key={county} value={county}>
+              {county}
+            </option>
+          ))}
+        </select>
+        <select
           className="flex-1 rounded border p-2"
-          placeholder="Expertise"
           value={category}
           onChange={e => setCategory(e.target.value)}
-        />
+        >
+          <option value="">All Expertise</option>
+          {VET_EXPERTISE.map(cat => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
       </div>
       <ul className="space-y-2">
         {filtered.map(v => (
