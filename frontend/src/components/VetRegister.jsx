@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { VetContext } from '../context/VetContext'
 import { useNavigate } from 'react-router-dom'
 import { FaUserPlus, FaPaw } from 'react-icons/fa'
+import { ISTANBUL_COUNTIES, VET_EXPERTISE } from '../constants'
 
 const VetRegister = () => {
   const { registerVet } = useContext(VetContext)
@@ -46,20 +47,32 @@ const VetRegister = () => {
         value={form.password}
         onChange={handleChange}
       />
-      <input
+      <select
         className="w-full rounded border p-2"
         name="location"
-        placeholder="Location"
         value={form.location}
         onChange={handleChange}
-      />
-      <input
+      >
+        <option value="">Select Location</option>
+        {ISTANBUL_COUNTIES.map(county => (
+          <option key={county} value={county}>
+            {county}
+          </option>
+        ))}
+      </select>
+      <select
         className="w-full rounded border p-2"
         name="categories"
-        placeholder="Expertise (comma separated)"
         value={form.categories}
         onChange={handleChange}
-      />
+      >
+        <option value="">Select Expertise</option>
+        {VET_EXPERTISE.map(cat => (
+          <option key={cat} value={cat}>
+            {cat}
+          </option>
+        ))}
+      </select>
       <button
         className="flex items-center gap-2 rounded bg-blue-600 px-4 py-2 text-white"
         type="submit"
