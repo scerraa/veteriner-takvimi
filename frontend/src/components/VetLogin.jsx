@@ -17,12 +17,28 @@ const VetLogin = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Vet Login</h2>
-      {error && <p>{error}</p>}
-      <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-      <button type="submit">Login</button>
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto max-w-md space-y-4 rounded bg-white p-6 shadow"
+    >
+      <h2 className="text-2xl font-bold">Vet Login</h2>
+      {error && <p className="text-red-500">{error}</p>}
+      <input
+        className="w-full rounded border p-2"
+        placeholder="Email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+      />
+      <input
+        className="w-full rounded border p-2"
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+      />
+      <button className="rounded bg-blue-600 px-4 py-2 text-white" type="submit">
+        Login
+      </button>
     </form>
   )
 }

@@ -19,11 +19,29 @@ const MakeAppointment = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Book Appointment with {vet.name}</h2>
-      <input placeholder="Your Name" value={userName} onChange={e => setUserName(e.target.value)} />
-      <input type="datetime-local" value={date} onChange={e => setDate(e.target.value)} />
-      <button type="submit">Book</button>
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto max-w-md space-y-4 rounded bg-white p-6 shadow"
+    >
+      <h2 className="text-2xl font-bold">Book Appointment with {vet.name}</h2>
+      <input
+        className="w-full rounded border p-2"
+        placeholder="Your Name"
+        value={userName}
+        onChange={e => setUserName(e.target.value)}
+      />
+      <input
+        className="w-full rounded border p-2"
+        type="datetime-local"
+        value={date}
+        onChange={e => setDate(e.target.value)}
+      />
+      <button
+        className="rounded bg-blue-600 px-4 py-2 text-white"
+        type="submit"
+      >
+        Book
+      </button>
     </form>
   )
 }

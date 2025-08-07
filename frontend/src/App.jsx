@@ -7,9 +7,11 @@ import MakeAppointment from './components/MakeAppointment'
 
 export default function App() {
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/vet/register">Vet Register</Link> | <Link to="/vet/login">Vet Login</Link>
+    <div className="max-w-3xl mx-auto p-4">
+      <nav className="mb-6 flex space-x-4 rounded bg-blue-600 p-4 text-white">
+        <Link className="hover:underline" to="/">Home</Link>
+        <Link className="hover:underline" to="/vet/register">Vet Register</Link>
+        <Link className="hover:underline" to="/vet/login">Vet Login</Link>
       </nav>
       <Routes>
         <Route path="/" element={<SearchVets />} />

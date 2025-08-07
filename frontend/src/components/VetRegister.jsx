@@ -16,14 +16,50 @@ const VetRegister = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Vet Registration</h2>
-      <input name="name" placeholder="Name" value={form.name} onChange={handleChange} />
-      <input name="email" placeholder="Email" value={form.email} onChange={handleChange} />
-      <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} />
-      <input name="location" placeholder="Location" value={form.location} onChange={handleChange} />
-      <input name="categories" placeholder="Expertise (comma separated)" value={form.categories} onChange={handleChange} />
-      <button type="submit">Register</button>
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto max-w-md space-y-4 rounded bg-white p-6 shadow"
+    >
+      <h2 className="text-2xl font-bold">Vet Registration</h2>
+      <input
+        className="w-full rounded border p-2"
+        name="name"
+        placeholder="Name"
+        value={form.name}
+        onChange={handleChange}
+      />
+      <input
+        className="w-full rounded border p-2"
+        name="email"
+        placeholder="Email"
+        value={form.email}
+        onChange={handleChange}
+      />
+      <input
+        className="w-full rounded border p-2"
+        name="password"
+        type="password"
+        placeholder="Password"
+        value={form.password}
+        onChange={handleChange}
+      />
+      <input
+        className="w-full rounded border p-2"
+        name="location"
+        placeholder="Location"
+        value={form.location}
+        onChange={handleChange}
+      />
+      <input
+        className="w-full rounded border p-2"
+        name="categories"
+        placeholder="Expertise (comma separated)"
+        value={form.categories}
+        onChange={handleChange}
+      />
+      <button className="rounded bg-blue-600 px-4 py-2 text-white" type="submit">
+        Register
+      </button>
     </form>
   )
 }
