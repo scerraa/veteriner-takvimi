@@ -7,15 +7,16 @@ const SearchVets = () => {
   const [location, setLocation] = useState('')
   const [category, setCategory] = useState('')
 
-  const filtered = vets.filter(v =>
-    (location === '' || v.location.toLowerCase().includes(location.toLowerCase())) &&
-    (category === '' || v.categories.toLowerCase().includes(category.toLowerCase()))
+  const filtered = vets.filter(
+    v =>
+      (location === '' || v.location.toLowerCase().includes(location.toLowerCase())) &&
+      (category === '' || v.categories.toLowerCase().includes(category.toLowerCase()))
   )
 
   return (
     <div className="rounded bg-white p-6 shadow">
       <h2 className="mb-4 text-2xl font-bold">Search Vets</h2>
-      <div className="mb-4 flex space-x-2">
+      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:gap-2">
         <input
           className="flex-1 rounded border p-2"
           placeholder="Location"
@@ -44,3 +45,4 @@ const SearchVets = () => {
 }
 
 export default SearchVets
+
