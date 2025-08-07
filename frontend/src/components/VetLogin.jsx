@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { VetContext } from '../context/VetContext'
 import { useNavigate } from 'react-router-dom'
+import { FaSignInAlt } from 'react-icons/fa'
 
 const VetLogin = () => {
   const { loginVet } = useContext(VetContext)
@@ -21,7 +22,9 @@ const VetLogin = () => {
       onSubmit={handleSubmit}
       className="mx-auto max-w-md space-y-4 rounded bg-white p-6 shadow"
     >
-      <h2 className="text-2xl font-bold">Vet Login</h2>
+      <h2 className="flex items-center text-2xl font-bold">
+        <FaSignInAlt className="mr-2" /> Vet Login
+      </h2>
       {error && <p className="text-red-500">{error}</p>}
       <input
         className="w-full rounded border p-2"
@@ -36,8 +39,11 @@ const VetLogin = () => {
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
-      <button className="rounded bg-blue-600 px-4 py-2 text-white" type="submit">
-        Login
+      <button
+        className="flex items-center gap-2 rounded bg-blue-600 px-4 py-2 text-white"
+        type="submit"
+      >
+        <FaSignInAlt /> Login
       </button>
     </form>
   )
