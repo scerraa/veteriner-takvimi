@@ -1,27 +1,31 @@
 import React, { useContext, useState } from 'react'
 import { VetContext } from '../context/VetContext'
 import { useNavigate } from 'react-router-dom'
-import { FaUserPlus, FaPaw } from 'react-icons/fa'
+import { FaUserEdit, FaSave } from 'react-icons/fa'
 import { ISTANBUL_COUNTIES, VET_EXPERTISE } from '../constants'
 
-const VetRegister = () => {
-  const { registerVet } = useContext(VetContext)
-  const [form, setForm] = useState({
-    name: '',
-    lastName: '',
-    email: '',
-    password: '',
-    location: '',
-    categories: '',
-  })
+const EditProfile = () => {
+  const { currentVet, updateVet } = useContext(VetContext)
   const navigate = useNavigate()
+  const [form, setForm] = useState(currentVet || {})
+
+  if (!currentVet) return <p>Please log in.</p>
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
+  const handlePhoto = e => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = () => setForm({ ...form, photo: reader.result })
+      reader.readAsDataURL(file)
+    }
+  }
+
   const handleSubmit = e => {
     e.preventDefault()
-    registerVet(form)
-    navigate('/vet/login')
+    updateVet(form)
+    navigate('/vet/dashboard')
   }
 
   return (
@@ -30,41 +34,26 @@ const VetRegister = () => {
       className="mx-auto max-w-md space-y-4 rounded bg-white p-6 shadow"
     >
       <h2 className="flex items-center text-2xl font-bold">
-        <FaUserPlus className="mr-2" /> Vet Registration
+        <FaUserEdit className="mr-2" /> Edit Profile
       </h2>
       <input
         className="w-full rounded border p-2"
         name="name"
         placeholder="Name"
-        value={form.name}
+        value={form.name || ''}
         onChange={handleChange}
       />
       <input
         className="w-full rounded border p-2"
         name="lastName"
         placeholder="Last Name"
-        value={form.lastName}
-        onChange={handleChange}
-      />
-      <input
-        className="w-full rounded border p-2"
-        name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-      />
-      <input
-        className="w-full rounded border p-2"
-        name="password"
-        type="password"
-        placeholder="Password"
-        value={form.password}
+        value={form.lastName || ''}
         onChange={handleChange}
       />
       <select
         className="w-full rounded border p-2"
         name="location"
-        value={form.location}
+        value={form.location || ''}
         onChange={handleChange}
       >
         <option value="">Select Location</option>
@@ -77,7 +66,7 @@ const VetRegister = () => {
       <select
         className="w-full rounded border p-2"
         name="categories"
-        value={form.categories}
+        value={form.categories || ''}
         onChange={handleChange}
       >
         <option value="">Select Expertise</option>
@@ -87,15 +76,22 @@ const VetRegister = () => {
           </option>
         ))}
       </select>
+      <input type="file" onChange={handlePhoto} />
+      {form.photo && (
+        <img
+          src={form.photo}
+          alt="Preview"
+          className="h-20 w-20 rounded-full object-cover"
+        />
+      )}
       <button
         className="flex items-center gap-2 rounded bg-blue-600 px-4 py-2 text-white"
         type="submit"
       >
-        <FaPaw /> Register
+        <FaSave /> Save
       </button>
     </form>
   )
 }
 
-export default VetRegister
-
+export default EditProfile

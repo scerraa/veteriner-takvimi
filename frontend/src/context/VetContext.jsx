@@ -14,7 +14,7 @@ const load = (key, fallback) => {
 export const VetProvider = ({ children }) => {
   const [vets, setVets] = useState(() => load('vets', []))
   const [appointments, setAppointments] = useState(() => load('appointments', []))
-  const [currentVet, setCurrentVet] = useState(null)
+  const [currentVet, setCurrentVet] = useState(() => load('currentVet', null))
 
   useEffect(() => {
     localStorage.setItem('vets', JSON.stringify(vets))
@@ -23,6 +23,10 @@ export const VetProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('appointments', JSON.stringify(appointments))
   }, [appointments])
+
+  useEffect(() => {
+    localStorage.setItem('currentVet', JSON.stringify(currentVet))
+  }, [currentVet])
 
   const registerVet = vet => {
     setVets([...vets, { ...vet, id: Date.now().toString() }])
@@ -34,12 +38,32 @@ export const VetProvider = ({ children }) => {
     return !!vet
   }
 
+  const logoutVet = () => {
+    setCurrentVet(null)
+  }
+
+  const updateVet = updated => {
+    setVets(vets.map(v => (v.id === updated.id ? updated : v)))
+    setCurrentVet(updated)
+  }
+
   const addAppointment = appt => {
     setAppointments([...appointments, { ...appt, id: Date.now().toString() }])
   }
 
   return (
-    <VetContext.Provider value={{ vets, appointments, currentVet, registerVet, loginVet, addAppointment }}>
+    <VetContext.Provider
+      value={{
+        vets,
+        appointments,
+        currentVet,
+        registerVet,
+        loginVet,
+        logoutVet,
+        updateVet,
+        addAppointment,
+      }}
+    >
       {children}
     </VetContext.Provider>
   )

@@ -49,7 +49,7 @@ const SearchVets = () => {
       <ul className="space-y-2">
         {filtered.map(v => (
           <li className="rounded border p-2" key={v.id}>
-            {v.name} ({v.location}) - {v.categories}{' '}
+            {v.name} {v.lastName || ''} ({v.location}) - {v.categories}{' '}
             <Link
               className="inline-flex items-center text-blue-600 hover:underline"
               to={`/appointment/${v.id}`}

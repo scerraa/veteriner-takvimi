@@ -12,7 +12,7 @@ const VetDashboard = () => {
   return (
     <div className="mx-auto max-w-md rounded bg-white p-6 shadow">
       <h2 className="mb-4 flex items-center text-2xl font-bold">
-        <FaCalendarAlt className="mr-2" /> {currentVet.name}'s Appointments
+        <FaCalendarAlt className="mr-2" /> {currentVet.name} {currentVet.lastName || ''}'s Appointments
       </h2>
       <ul className="space-y-2">
         {myAppointments.map(a => (
