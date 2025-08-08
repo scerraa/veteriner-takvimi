@@ -25,7 +25,7 @@ const MakeAppointment = () => {
       className="mx-auto max-w-md space-y-4 rounded bg-white p-6 shadow"
     >
       <h2 className="flex items-center text-2xl font-bold">
-        <FaCalendarCheck className="mr-2" /> Book Appointment with {vet.name}
+        <FaCalendarCheck className="mr-2" /> Book Appointment with {vet.name} {vet.lastName || ''}
       </h2>
       <input
         className="w-full rounded border p-2"
