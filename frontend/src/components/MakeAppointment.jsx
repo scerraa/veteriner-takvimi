@@ -5,17 +5,26 @@ import { FaCalendarCheck, FaCalendarPlus } from 'react-icons/fa'
 
 const MakeAppointment = () => {
   const { vetId } = useParams()
-  const { vets, addAppointment } = useContext(VetContext)
+  const { vets, appointments, addAppointment } = useContext(VetContext)
   const vet = vets.find(v => v.id === vetId)
   const [userName, setUserName] = useState('')
-  const [date, setDate] = useState('')
+  const [selectedDate, setSelectedDate] = useState('')
+  const [time, setTime] = useState('')
   const navigate = useNavigate()
 
   if (!vet) return <p>Vet not found.</p>
 
+  const availability = vet.availability || {}
+  const slotsForDate = availability[selectedDate] || []
+  const bookedSlots = appointments
+    .filter(a => a.vetId === vetId && a.date.startsWith(selectedDate))
+    .map(a => a.date.slice(11, 16))
+  const freeSlots = slotsForDate.filter(s => !bookedSlots.includes(s))
+
   const handleSubmit = e => {
     e.preventDefault()
-    addAppointment({ vetId, userName, date })
+    if (!time) return
+    addAppointment({ vetId, userName, date: `${selectedDate}T${time}` })
     navigate('/')
   }
 
@@ -35,10 +44,27 @@ const MakeAppointment = () => {
       />
       <input
         className="w-full rounded border p-2"
-        type="datetime-local"
-        value={date}
-        onChange={e => setDate(e.target.value)}
+        type="date"
+        value={selectedDate}
+        onChange={e => {
+          setSelectedDate(e.target.value)
+          setTime('')
+        }}
       />
+      {selectedDate && (
+        <select
+          className="w-full rounded border p-2"
+          value={time}
+          onChange={e => setTime(e.target.value)}
+        >
+          <option value="">Select Time</option>
+          {freeSlots.map(slot => (
+            <option key={slot} value={slot}>
+              {slot}
+            </option>
+          ))}
+        </select>
+      )}
       <button
         className="flex items-center gap-2 rounded bg-blue-600 px-4 py-2 text-white"
         type="submit"
