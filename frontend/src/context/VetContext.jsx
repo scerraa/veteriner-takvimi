@@ -47,6 +47,18 @@ export const VetProvider = ({ children }) => {
     setCurrentVet(updated)
   }
 
+  const setAvailability = (date, slots) => {
+    const updated = {
+      ...currentVet,
+      availability: {
+        ...(currentVet?.availability || {}),
+        [date]: slots,
+      },
+    }
+    setVets(vets.map(v => (v.id === currentVet.id ? updated : v)))
+    setCurrentVet(updated)
+  }
+
   const addAppointment = appt => {
     setAppointments([...appointments, { ...appt, id: Date.now().toString() }])
   }
@@ -61,6 +73,7 @@ export const VetProvider = ({ children }) => {
         loginVet,
         logoutVet,
         updateVet,
+        setAvailability,
         addAppointment,
       }}
     >
